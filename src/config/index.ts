@@ -9,4 +9,7 @@ export default {
   api: {
     prefix: process.env.API_PREFIX,
   },
+  session: {
+    password: process.env.SESSION_PASSWORD,
+  },
 };

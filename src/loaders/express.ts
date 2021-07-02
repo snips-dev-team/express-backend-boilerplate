@@ -8,6 +8,7 @@ const {
 } = config;
 
 export const expressLoader = (app: Express): void => {
+  if (!prefix) return;
   app.use(cors());
   app.use(json());
   app.use(prefix, routes());

@@ -7,7 +7,8 @@ const {
 } = config;
 const users = [{ id: 1, email: "paulo@mesquita.dev", password: "PauloLuiz" }];
 
-export const sessionRoute = (app: Router): Router => {
+export const sessionRoute = (app: Router): Router | undefined => {
+  if (!password) return;
   const route: Router = Router();
 
   app.use("/session", route);

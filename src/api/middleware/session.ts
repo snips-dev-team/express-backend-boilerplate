@@ -14,12 +14,15 @@ export const sessionMiddleware = (
 ): void => {
   const authorizationField = req.headers["authorization"];
 
-  if (!authorizationField)
+  if (!authorizationField) {
     res.status(401).json({
       error: true,
       message: "No token provided.",
       result: "You need to send a token",
     });
+    return;
+  }
+  if (!password) return;
   const token = authorizationField.split("Bearer ")[1];
   try {
     const data = jwt.verify(token, password);

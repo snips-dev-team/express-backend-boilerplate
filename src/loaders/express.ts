@@ -1,7 +1,7 @@
-import { json, Express } from "express";
-import cors from "cors";
-import config from "../config";
-import { routes } from "../api";
+import { json, Express } from 'express';
+import cors from 'cors';
+import config from '../config';
+import { routes } from '../api';
 
 const {
   api: { prefix },

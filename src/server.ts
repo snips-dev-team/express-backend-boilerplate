@@ -1,6 +1,6 @@
-import express from "express";
-import config from "./config";
-import { loaders } from "./loaders";
+import express from 'express';
+import config from './config';
+import { loaders } from './loaders';
 
 const {
   application: { port },

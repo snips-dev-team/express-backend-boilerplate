@@ -1,19 +1,19 @@
-import { Router } from "express";
-import jwt from "jsonwebtoken";
-import config from "../../config";
+import { Router } from 'express';
+import jwt from 'jsonwebtoken';
+import config from '../../config';
 
 const {
   session: { password },
 } = config;
-const users = [{ id: 1, email: "paulo@mesquita.dev", password: "PauloLuiz" }];
+const users = [{ id: 1, email: 'paulo@mesquita.dev', password: 'PauloLuiz' }];
 
 export const sessionRoute = (app: Router): Router | undefined => {
   if (!password) return;
   const route: Router = Router();
 
-  app.use("/session", route);
+  app.use('/session', route);
 
-  route.post("/login", (req, res) => {
+  route.post('/login', (req, res) => {
     const data = req.body;
     const user = users.filter(
       (user) => user.email === data.email && user.password === data.password

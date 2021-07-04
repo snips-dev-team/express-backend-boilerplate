@@ -12,4 +12,8 @@ export default {
   session: {
     password: process.env.SESSION_PASSWORD,
   },
+  database: {
+    url: process.env.DATABASE_URL,
+    type: process.env.DATABASE_TYPE,
+  },
 };

@@ -6,8 +6,10 @@ const {
   application: { port },
 } = config;
 
-const app = express();
+const start = async () => {
+  const app = express();
+  await loaders(app);
+  app.listen(port, () => console.log(`Running on port ${port}`));
+};
 
-loaders(app);
-
-app.listen(port, () => console.log(`Running on port ${port}`));
+start();

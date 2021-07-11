@@ -1,10 +1,5 @@
-import jwt from 'jsonwebtoken';
-import config from '../../config';
 import { Request, Response, NextFunction } from 'express';
-
-const {
-  session: { password },
-} = config;
+import { verifyToken } from '../../services/session';
 
 // Verify authentication
 export const sessionMiddleware = (
@@ -22,15 +17,13 @@ export const sessionMiddleware = (
     });
     return;
   }
-  if (!password) return;
-  const token = authorizationField.split('Bearer ')[1];
-  try {
-    const data = jwt.verify(token, password);
-    req.user = data;
-    next();
-  } catch {
+  const verifiedToken = verifyToken(authorizationField);
+  if (!verifiedToken) {
     res
       .status(401)
       .json({ auth: false, message: 'Failed to authenticate token.' });
+  } else if (typeof verifiedToken !== 'boolean') {
+    req.user = verifiedToken;
+    next();
   }
 };

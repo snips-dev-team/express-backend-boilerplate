@@ -1,27 +1,25 @@
 import { Router } from 'express';
-import jwt from 'jsonwebtoken';
-import config from '../../config';
-
-const {
-  session: { password },
-} = config;
-const users = [{ id: 1, email: 'paulo@mesquita.dev', password: 'PauloLuiz' }];
+import { login } from '../../services/session';
 
 export const sessionRoute = (app: Router): Router | undefined => {
-  if (!password) return;
   const route: Router = Router();
 
   app.use('/session', route);
 
   route.post('/login', (req, res) => {
     const data = req.body;
-    const user = users.filter(
-      (user) => user.email === data.email && user.password === data.password
-    );
-    if (user.length > 0) {
-      return res.json({ token: jwt.sign({ user }, password) });
+    const { email, password } = data;
+    if (!email || !password)
+      return res
+        .status(403)
+        .json({ ok: false, message: 'You need to send email and password' });
+    const token = login(email, password);
+    if (typeof token === 'boolean') {
+      return res
+        .status(403)
+        .json({ ok: false, message: 'Information doesnt match any user' });
     } else {
-      res.status(403).json({ ok: false });
+      return res.status(200).json({ ok: true, token });
     }
   });
 

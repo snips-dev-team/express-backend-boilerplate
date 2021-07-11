@@ -2,18 +2,24 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const verifyEnvironmentVariable = (name: string): string => {
+  const variable = process.env[name];
+  if (!variable) throw `Missing environment variable ${name}`;
+  return variable;
+};
+
 export default {
   application: {
-    port: process.env.PORT,
+    port: verifyEnvironmentVariable('PORT'),
   },
   api: {
-    prefix: process.env.API_PREFIX,
+    prefix: verifyEnvironmentVariable('API_PREFIX'),
   },
   session: {
-    password: process.env.SESSION_PASSWORD,
+    jwtPassword: verifyEnvironmentVariable('SESSION_PASSWORD'),
   },
   database: {
-    url: process.env.DATABASE_URL,
-    type: process.env.DATABASE_TYPE,
+    url: verifyEnvironmentVariable('DATABASE_URL'),
+    type: verifyEnvironmentVariable('DATABASE_TYPE'),
   },
 };

@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js --config src/database/config.ts",
+    "migration:create": "ts-node-dev ./node_modules/typeorm/cli.js --config src/database/config.ts migration:generate -n",
+    "migration:up": "ts-node-dev ./node_modules/typeorm/cli.js --config src/database/config.ts migration:run",
+    "migration:down": "ts-node-dev ./node_modules/typeorm/cli.js --config src/database/config.ts migration:revert",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest",
     "build": "tsc",
